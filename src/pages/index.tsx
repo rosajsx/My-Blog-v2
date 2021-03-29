@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import Header from '../components/Header';
 
 import { getPrismicClient } from '../services/prismic';
 
@@ -33,7 +34,9 @@ a paginação vem configurada como 20. Portanto se quiser testar sem
 
 export default function Home() {
   return (
-    <div>ata</div>
+    <>
+      <Header/>
+      </>
   )
 }
 
