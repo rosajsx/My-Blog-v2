@@ -31,9 +31,11 @@ a paginação vem configurada como 20. Portanto se quiser testar sem
  ter que criar mais de 20 posts, altere a opção `pageSize`
  para o valor que deseja. */
 
-// export default function Home() {
-//   // TODO
-// }
+export default function Home() {
+  return (
+    <div>ata</div>
+  )
+}
 
 // export const getStaticProps = async () => {
 //   // const prismic = getPrismicClient();
