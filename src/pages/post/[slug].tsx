@@ -26,6 +26,12 @@ interface PostProps {
   post: Post;
 }
 
+/*
+- **src/pages/posts/[slug.tsx]**: Utilizar o método `query`
+ para buscar todos os `posts` e o `getByUID` para buscar as
+ informações do `post` específico.
+ */
+
 // export default function Post() {
 //   // TODO
 // }
