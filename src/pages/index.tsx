@@ -64,7 +64,6 @@ export default function Home({ postsPagination }: HomeProps) {
 
   return (
     <>
-      <Header />
       <main className={commonStyles.postsContainer}>
         {posts.map((post: Post) => (
           <div className={`${styles.post}`} key={post.uid}>
@@ -103,11 +102,10 @@ export const getStaticProps: GetStaticProps = async () => {
     [Prismic.predicates.at('document.type', 'posts')],
     {
       fetch: ['posts.title', 'posts.subtitle', 'posts.author'],
-      pageSize: 1,
+      pageSize: 5,
     }
   );
 
-  console.log(postsResponse);
   const results = postsResponse.results.map(post => {
     return {
       uid: post.uid,

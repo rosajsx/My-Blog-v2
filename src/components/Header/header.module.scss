@@ -1,25 +1,16 @@
 .container {
   display: flex;
-  height: 10rem;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
   justify-content: center;
   align-items: center;
-
-  div{
+  div {
     max-width: 1120px;
     width: 43.75rem;
 
-
-    img{
-
+    img {
       width: 238.62px;
       height: 25.63px;
-
-
     }
   }
-
-
 }
-
-
-
