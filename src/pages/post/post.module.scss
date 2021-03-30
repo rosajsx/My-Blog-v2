@@ -1,1 +1,65 @@
-// TODO
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postContainer {
+  max-width: 721px;
+  padding: 2rem;
+
+  header {
+    h1 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 58px;
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+
+      color: var(--gray-300);
+    }
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      color: var(--gray-500);
+      width: 357px;
+      padding-bottom: 1rem;
+
+      font-size: 0.875rem;
+      line-height: 1.065rem;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      span,
+      time {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+
+  .postContent {
+    font-style: normal;
+    color: var(--gray-300);
+
+    h2 {
+      font-size: 36px;
+      font-weight: bold;
+      padding: 2rem 0;
+    }
+
+    li {
+      list-style-type: none;
+    }
+
+    .content {
+      text-align: justify;
+    }
+  }
+}

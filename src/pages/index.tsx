@@ -64,6 +64,8 @@ export default function Home({ postsPagination }: HomeProps) {
 
   return (
     <>
+      <Header />
+
       <main className={commonStyles.postsContainer}>
         {posts.map((post: Post) => (
           <div className={`${styles.post}`} key={post.uid}>
@@ -77,7 +79,15 @@ export default function Home({ postsPagination }: HomeProps) {
             <div>
               <p>
                 <FiCalendar />
-                <time>{post.first_publication_date}</time>
+                <time>
+                  {format(
+                    new Date(post.first_publication_date),
+                    'dd MMM yyyy',
+                    {
+                      locale: ptBR,
+                    }
+                  )}
+                </time>
                 <FiUser /> {post.data.author}
               </p>
             </div>
@@ -110,17 +120,10 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       uid: post.uid,
       data: post.data,
-      first_publication_date: format(
-        new Date(post.first_publication_date),
-        'dd MMM yyyy',
-        {
-          locale: ptBR,
-        }
-      ),
+      first_publication_date: post.first_publication_date,
     };
   });
 
-  //console.log(posts);
   return {
     props: {
       postsPagination: {
