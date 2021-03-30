@@ -1,11 +1,25 @@
 .container {
+  display: flex;
+  height: 10rem;
+  justify-content: center;
+  align-items: center;
 
-  img{
-    position: absolute;
-    width: 238.62px;
-    height: 25.63px;
-    left: 372px;
-    top: 79.55px;
+  div{
+    max-width: 1120px;
+    width: 43.75rem;
 
+
+    img{
+
+      width: 238.62px;
+      height: 25.63px;
+
+
+    }
   }
+
+
 }
+
+
+
