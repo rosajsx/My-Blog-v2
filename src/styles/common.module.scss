@@ -1,0 +1,13 @@
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  strong,
+  p,
+  div p {
+    font-style: normal;
+    font-weight: normal;
+  }
+}
