@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { FiCalendar, FiUser } from 'react-icons/fi';
 import Prismic from '@prismicio/client';
 import { useState } from 'react';
+import { ExitPreviewButton } from '../components/ExitPreviewButton/index';
 
 interface Post {
   uid?: string;
@@ -29,6 +30,7 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: unknown;
 }
 
 /* - **src/pages/index.tsx**: Utilizar o método `query`
@@ -37,7 +39,7 @@ a paginação vem configurada como 20. Portanto se quiser testar sem
  ter que criar mais de 20 posts, altere a opção `pageSize`
  para o valor que deseja. */
 
-export default function Home({ postsPagination }: HomeProps) {
+export default function Home({ postsPagination, preview }: HomeProps) {
   const [posts, setPosts] = useState(postsPagination.results);
   const [nextPage, setNextPage] = useState(postsPagination.next_page);
 
@@ -101,18 +103,23 @@ export default function Home({ postsPagination }: HomeProps) {
             </button>
           </div>
         )}
+        {preview && <ExitPreviewButton />}
       </main>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData,
+}) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
     [Prismic.predicates.at('document.type', 'posts')],
     {
       fetch: ['posts.title', 'posts.subtitle', 'posts.author'],
-      pageSize: 5,
+      pageSize: 1,
+      ref: previewData?.ref ?? null,
     }
   );
 
@@ -130,6 +137,7 @@ export const getStaticProps: GetStaticProps = async () => {
         results,
         next_page: postsResponse.next_page,
       },
+      preview,
     },
   };
 };

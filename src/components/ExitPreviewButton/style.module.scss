@@ -1,0 +1,22 @@
+.container {
+  /* left: 50%;
+  transform: translate(-50%); */
+
+  width: 43.75rem;
+  background-color: var(--gray-300);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+
+  a {
+    text-decoration: none;
+    color: var(--background);
+    transition: text-decoration 0.2s;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

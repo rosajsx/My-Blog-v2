@@ -11,6 +11,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
 import { RichText } from 'prismic-dom';
 import Header from '../../components/Header';
+import Link from 'next/link';
+import { ExitPreviewButton } from '../../components/ExitPreviewButton/index';
 
 interface Post {
   first_publication_date: string | null;
@@ -31,6 +33,7 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview: unknown;
 }
 
 /*
@@ -39,7 +42,7 @@ interface PostProps {
  informações do `post` específico.
  */
 
-export default function Post({ post }: PostProps) {
+export default function Post({ post, preview }: PostProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -119,6 +122,7 @@ export default function Post({ post }: PostProps) {
               </div>
             ))}
           </div>
+          {preview && <ExitPreviewButton />}
         </article>
       </main>
     </div>
@@ -142,10 +146,16 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({
+  params,
+  preview = false,
+  previewData,
+}) => {
   const { slug } = params;
   const prismic = getPrismicClient();
-  const response = await prismic.getByUID('posts', String(slug), {});
+  const response = await prismic.getByUID('posts', String(slug), {
+    ref: previewData?.ref ?? null,
+  });
 
   const post = {
     uid: response.uid,
@@ -156,6 +166,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       post,
+      preview,
     },
   };
 };
