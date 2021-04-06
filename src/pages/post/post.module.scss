@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .postContainer {
@@ -60,6 +61,30 @@
 
     .content {
       text-align: justify;
+    }
+  }
+}
+
+.nextPrev {
+  width: 100%;
+  margin: 2rem;
+  height: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  strong {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

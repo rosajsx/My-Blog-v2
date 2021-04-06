@@ -34,6 +34,16 @@ interface Post {
 interface PostProps {
   post: Post;
   preview: unknown;
+  pagination: {
+    nextPage: {
+      title: string;
+      href: string;
+    };
+    prevPage: {
+      title: string;
+      href: string;
+    };
+  };
 }
 
 /*
@@ -42,7 +52,7 @@ interface PostProps {
  informações do `post` específico.
  */
 
-export default function Post({ post, preview }: PostProps) {
+export default function Post({ post, preview, pagination }: PostProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -124,6 +134,27 @@ export default function Post({ post, preview }: PostProps) {
           </div>
           {preview && <ExitPreviewButton />}
         </article>
+        {pagination && (
+          <section className={styles.nextPrev}>
+            {pagination.prevPage && (
+              <strong>
+                {pagination.prevPage?.title}
+                <Link href={pagination.prevPage.href}>
+                  <a>Post anterior</a>
+                </Link>
+              </strong>
+            )}
+
+            {pagination.nextPage && (
+              <strong>
+                {pagination.nextPage.title}
+                <Link href={pagination.nextPage?.href}>
+                  <a>Próximo Post</a>
+                </Link>
+              </strong>
+            )}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -163,10 +194,43 @@ export const getStaticProps = async ({
     data: response.data,
   };
 
+  const {
+    results: [prevPage],
+  } = await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
+    after: response.id,
+    orderings: '[document.first_publication_date desc]',
+  });
+
+  const {
+    results: [nextPage],
+  } = await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
+    after: response.id,
+    orderings: '[document.first_publication_date]',
+  });
+
+  console.log(nextPage);
+  console.log(prevPage);
+
+  const pagination = {
+    nextPage: nextPage
+      ? {
+          title: nextPage.data.title,
+          href: `/post/${nextPage.uid}`,
+        }
+      : null,
+    prevPage: prevPage
+      ? {
+          title: prevPage.data.title,
+          href: `/post/${prevPage.uid}`,
+        }
+      : null,
+  };
+
   return {
     props: {
       post,
       preview,
+      pagination: pagination,
     },
   };
 };
