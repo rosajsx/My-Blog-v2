@@ -13,6 +13,8 @@ import { RichText } from 'prismic-dom';
 import Header from '../../components/Header';
 import Link from 'next/link';
 import { ExitPreviewButton } from '../../components/ExitPreviewButton/index';
+import { Comments } from '../../components/Comments/index';
+import Head from 'next/head';
 
 interface Post {
   first_publication_date: string | null;
@@ -93,7 +95,9 @@ export default function Post({ post, preview, pagination }: PostProps) {
   return (
     <div>
       <Header />
-
+      <Head>
+        <title>{post.data.title}</title>
+      </Head>
       <img
         style={{ height: '400px', width: '100%' }}
         src={post.data.banner.url}
@@ -145,6 +149,8 @@ export default function Post({ post, preview, pagination }: PostProps) {
               </div>
             ))}
           </div>
+          <Comments post={post} />
+
           {preview && <ExitPreviewButton />}
         </article>
         {pagination && (
