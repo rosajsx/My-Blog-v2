@@ -1,17 +1,17 @@
-import { GetStaticProps } from 'next';
-import Header from '../components/Header';
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
-import { getPrismicClient } from '../services/prismic';
+import { GetStaticProps } from "next";
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
-import commonStyles from '../styles/common.module.scss';
-import styles from './home.module.scss';
-import Link from 'next/link';
+import Link from "next/link";
 
-import { FiCalendar, FiUser } from 'react-icons/fi';
-import Prismic from '@prismicio/client';
-import { useState } from 'react';
-import { ExitPreviewButton } from '../components/ExitPreviewButton/index';
+import { FiCalendar, FiUser } from "react-icons/fi";
+import Prismic from "@prismicio/client";
+import { useState } from "react";
+import styles from "./home.module.scss";
+import commonStyles from "../styles/common.module.scss";
+import { getPrismicClient } from "../services/prismic";
+import Header from "../components/Header";
+import { ExitPreviewButton } from "../components/ExitPreviewButton/index";
 
 interface Post {
   uid?: string;
@@ -39,20 +39,22 @@ a paginação vem configurada como 20. Portanto se quiser testar sem
  ter que criar mais de 20 posts, altere a opção `pageSize`
  para o valor que deseja. */
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function Home({ postsPagination, preview }: HomeProps) {
   const [posts, setPosts] = useState(postsPagination.results);
   const [nextPage, setNextPage] = useState(postsPagination.next_page);
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async function getPagination() {
-    const response = await fetch(nextPage).then(data => data.json());
+    const response = await fetch(nextPage).then((data) => data.json());
 
-    const postData = response.results.map(post => {
+    const postData = response.results.map((post) => {
       return {
         uid: post.uid,
         data: post.data,
         first_publication_date: format(
           new Date(post.first_publication_date),
-          'dd MMM yyyy',
+          "dd MMM yyyy",
           {
             locale: ptBR,
           }
@@ -84,7 +86,7 @@ export default function Home({ postsPagination, preview }: HomeProps) {
                 <time>
                   {format(
                     new Date(post.first_publication_date),
-                    'dd MMM yyyy',
+                    "dd MMM yyyy",
                     {
                       locale: ptBR,
                     }
@@ -115,15 +117,15 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
-    [Prismic.predicates.at('document.type', 'posts')],
+    [Prismic.predicates.at("document.type", "posts")],
     {
-      fetch: ['posts.title', 'posts.subtitle', 'posts.author'],
+      fetch: ["posts.title", "posts.subtitle", "posts.author"],
       pageSize: 1,
       ref: previewData?.ref ?? null,
     }
   );
 
-  const results = postsResponse.results.map(post => {
+  const results = postsResponse.results.map((post) => {
     return {
       uid: post.uid,
       data: post.data,
