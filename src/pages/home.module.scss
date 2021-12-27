@@ -1,5 +1,6 @@
 .post {
   width: 43.75rem;
+  border-bottom: 1px solid var(--purple-600);
 
   a {
     text-decoration: none;
@@ -13,7 +14,7 @@
 
   strong {
     display: block;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 1.75rem;
     line-height: 2.125rem;
     padding-bottom: 1rem;
