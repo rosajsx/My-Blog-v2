@@ -1,6 +1,7 @@
 import { GetStaticProps } from "next";
 import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import Head from 'next/head';
 
 import Link from "next/link";
 
@@ -69,6 +70,9 @@ export default function Home({ postsPagination, preview }: HomeProps) {
   return (
     <>
       <Header />
+      <Head>
+        <title>Home</title>
+      </Head>
 
       <main className={commonStyles.postsContainer}>
         {posts.map((post: Post) => (
@@ -120,7 +124,7 @@ export const getStaticProps: GetStaticProps = async ({
     [Prismic.predicates.at("document.type", "posts")],
     {
       fetch: ["posts.title", "posts.subtitle", "posts.author"],
-      pageSize: 1,
+      pageSize: 3,
       ref: previewData?.ref ?? null,
     }
   );

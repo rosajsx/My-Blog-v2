@@ -11,7 +11,7 @@ function linkResolver(doc: Document): string {
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { token: ref, documentId } = req.query;
-  console.log({ ref, documentId });
+  // console.log({ ref, documentId });
 
   const prismicClient = getPrismicClient(req);
 
@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     .getPreviewResolver(String(ref), String(documentId))
     .resolve(linkResolver, '/');
 
-  console.log(redirectUrl);
+  // console.log(redirectUrl);
 
   if (!redirectUrl) {
     return res.status(401).json({ message: 'Invalid token' });

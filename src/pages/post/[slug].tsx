@@ -92,6 +92,8 @@ export default function Post({ post, preview, pagination }: PostProps) {
     return rateInSeconds;
   }
 
+  // console.log(pagination)
+
   return (
     <div>
       <Header />
@@ -149,29 +151,42 @@ export default function Post({ post, preview, pagination }: PostProps) {
               </div>
             ))}
           </div>
+
           <Comments post={post} />
 
           {preview && <ExitPreviewButton />}
         </article>
-        {pagination && (
+        {pagination.nextPage || pagination.prevPage && (
           <section className={styles.nextPrev}>
-            {pagination.prevPage && (
-              <strong>
+
+            <h3>Outro Posts</h3>
+
+            {pagination.prevPage ? (
+              <Link href={pagination.prevPage.href}>
+              <a>
+              <strong >
                 {pagination.prevPage?.title}
-                <Link href={pagination.prevPage.href}>
-                  <a>Post anterior</a>
-                </Link>
               </strong>
+              <span>(Post anterior)</span>
+              </a>
+              </Link>
+
+            ) : (
+              <strong />
             )}
 
-            {pagination.nextPage && (
-              <strong>
+            {pagination.nextPage ? (
+                              <Link href={pagination.nextPage?.href}>
+              <a>
+              <strong >
                 {pagination.nextPage.title}
-                <Link href={pagination.nextPage?.href}>
-                  <a>Próximo Post</a>
-                </Link>
+
               </strong>
-            )}
+              <span>(Próximo Post)</span>
+              </a>
+              </Link>
+
+            ) : (<strong/>)}
           </section>
         )}
       </main>
