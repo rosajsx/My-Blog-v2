@@ -96,7 +96,9 @@ export default function Home({ postsPagination, preview }: HomeProps) {
                     }
                   )}
                 </time>
-                <FiUser /> {post.data.author}
+              </p>
+              <p>
+              <FiUser /> {post.data.author}
               </p>
             </div>
           </div>
