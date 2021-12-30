@@ -6,8 +6,6 @@
   align-items: center;
   div {
     max-width: 1120px;
-    width: 43.75rem;
-
-
+    width: var(--container);
   }
 }

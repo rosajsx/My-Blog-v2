@@ -74,7 +74,8 @@ export default function Home({ postsPagination, preview }: HomeProps) {
         <title>Home</title>
       </Head>
 
-      <main className={commonStyles.postsContainer}>
+      <main className={commonStyles.container}>
+        <div className={commonStyles.content}>
         {posts.map((post: Post) => (
           <div className={`${styles.post}`} key={post.uid}>
             <Link href={`/post/${post.uid}`}>
@@ -112,6 +113,7 @@ export default function Home({ postsPagination, preview }: HomeProps) {
           </div>
         )}
         {preview && <ExitPreviewButton />}
+        </div>
       </main>
     </>
   );

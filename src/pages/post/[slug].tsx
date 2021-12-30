@@ -92,30 +92,32 @@ export default function Post({ post, preview, pagination }: PostProps) {
     return rateInSeconds;
   }
 
-  // console.log(pagination)
-
   return (
     <div>
       <Header />
       <Head>
         <title>{post.data.title}</title>
       </Head>
-      <img
+      {/* <img
         style={{ height: '400px', width: '100%' }}
         src={post.data.banner.url}
         alt="banner"
-      />
+      /> */}
 
-      <main className={styles.container}>
+      <main className={commonStyles.container}>
         <article className={styles.postContainer}>
           <header>
             <h1>{post.data.title}</h1>
             <p>
               <time>
                 <FiCalendar />{' '}
-                {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
-                  locale: ptBR,
-                })}
+                {format(
+                  new Date(post.first_publication_date ?? '2021-12-29'),
+                  'dd MMM yyyy',
+                  {
+                    locale: ptBR,
+                  }
+                )}
               </time>
               <span>
                 <FiUser /> {post.data.author}
@@ -156,37 +158,31 @@ export default function Post({ post, preview, pagination }: PostProps) {
 
           {preview && <ExitPreviewButton />}
         </article>
-        {pagination.nextPage || pagination.prevPage && (
+        {(pagination.nextPage || pagination.prevPage) && (
           <section className={styles.nextPrev}>
-
             <h3>Outro Posts</h3>
 
             {pagination.prevPage ? (
               <Link href={pagination.prevPage.href}>
-              <a>
-              <strong >
-                {pagination.prevPage?.title}
-              </strong>
-              <span>(Post anterior)</span>
-              </a>
+                <a>
+                  <strong>{pagination.prevPage?.title}</strong>
+                  <span>(Post anterior)</span>
+                </a>
               </Link>
-
             ) : (
               <strong />
             )}
 
             {pagination.nextPage ? (
-                              <Link href={pagination.nextPage?.href}>
-              <a>
-              <strong >
-                {pagination.nextPage.title}
-
-              </strong>
-              <span>(Próximo Post)</span>
-              </a>
+              <Link href={pagination.nextPage?.href}>
+                <a>
+                  <strong>{pagination.nextPage.title}</strong>
+                  <span>(Próximo Post)</span>
+                </a>
               </Link>
-
-            ) : (<strong/>)}
+            ) : (
+              <strong />
+            )}
           </section>
         )}
       </main>
@@ -203,7 +199,7 @@ export const getStaticPaths = async () => {
       pageSize: 100,
     }
   );
-  const paths = posts.results.map(post => ({ params: { slug: post.uid } }));
+  const paths = posts.results.map((post) => ({ params: { slug: post.uid } }));
 
   return {
     paths,
