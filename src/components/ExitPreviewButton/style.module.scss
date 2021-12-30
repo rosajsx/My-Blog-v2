@@ -2,7 +2,7 @@
   /* left: 50%;
   transform: translate(-50%); */
 
-  width: 43.75rem;
+  width: var(--container);
   background-color: var(--gray-300);
 
   display: flex;
